@@ -3,14 +3,21 @@ import AddTask from "./components/AddTask";
 import TotalTasks from "./components/TotalTasks";
 import RemainingTasks from "./components/RemainingTasks";
 import CompletedTasks from "./components/CompletedTasks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState(() => {
+    const savedTasks = localStorage.getItem("taskList");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [currentTaskName, setCurrentTaskName] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalTaskName, setModalTaskName] = useState();
   const [modalTaskId, setModalTaskId] = useState();
+
+  useEffect(() => {
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+  }, [taskList]);
 
   const handleTaskNameChange = (event) => {
     setCurrentTaskName(event.target.value);
