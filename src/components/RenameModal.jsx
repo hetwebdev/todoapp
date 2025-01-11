@@ -1,14 +1,17 @@
 import { IoCloseOutline } from "react-icons/io5";
 
-const RenameModal = () => {
+const RenameModal = (onModalClose) => {
   return (
-    <div className="p-4 border-[2px] border-slate-600 bg-slate-100 rounded-lg flex flex-col gap-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl z-10">
+    <div className="p-4 border-[2px] border-slate-600 bg-slate-100 rounded-lg flex flex-col gap-5 shadow-2xl">
       <div>
         <div className="flex items-center justify-between">
           <p className="font-semibold font-poppins font-base text-slate-800">
             Rename Task:
           </p>
-          <IoCloseOutline className="size-6 cursor-pointer bg-none rounded-md hover:bg-slate-300 hover:border-slate-800" />
+          <IoCloseOutline
+            className="size-6 cursor-pointer bg-none rounded-md hover:bg-slate-300 hover:border-slate-800"
+            onClick={onModalClose}
+          />
         </div>
         <p className="mt-1 font-semibold font-inter text-sm text-slate-500 break-words">
           Enter new name and click on submit to confirm:
