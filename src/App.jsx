@@ -29,17 +29,21 @@ const App = () => {
   };
 
   const handleInsertTask = (taskname) => {
-    let newtask = {
-      task_id: `${Date.now()}-${Math.floor(Math.random() * 9000)}`,
-      task_name: taskname,
-      is_task_completed: false,
-    };
+    if (taskname === "") {
+      return;
+    } else {
+      let newtask = {
+        task_id: `${Date.now()}-${Math.floor(Math.random() * 9000)}`,
+        task_name: taskname,
+        is_task_completed: false,
+      };
 
-    setTaskList((prevTasks) => {
-      return [...prevTasks, newtask];
-    });
+      setTaskList((prevTasks) => {
+        return [...prevTasks, newtask];
+      });
 
-    setCurrentTaskName("");
+      setCurrentTaskName("");
+    }
   };
 
   const handleToggleTaskCompletion = (taskId) => {
