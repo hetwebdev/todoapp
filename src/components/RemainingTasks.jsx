@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-const RemainingTasks = ({ tasks, onToggleTaskCompletion }) => {
+const RemainingTasks = ({ tasks, onToggleTaskCompletion, onDeleteTask }) => {
   let todos = [...tasks];
 
   const remainingtasks = todos.filter((todo) => {
@@ -24,6 +24,7 @@ const RemainingTasks = ({ tasks, onToggleTaskCompletion }) => {
               taskName={task.task_name}
               isCompleted={task.is_task_completed}
               onToggleTaskCompletion={onToggleTaskCompletion}
+              onDeleteTask={onDeleteTask}
             ></TaskItem>
           );
         })}

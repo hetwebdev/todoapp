@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-const CompletedTasks = ({ tasks, onToggleTaskCompletion }) => {
+const CompletedTasks = ({ tasks, onToggleTaskCompletion, onDeleteTask }) => {
   let todos = [...tasks];
 
   const completedtasks = todos.filter((todo) => {
@@ -24,6 +24,7 @@ const CompletedTasks = ({ tasks, onToggleTaskCompletion }) => {
               taskName={task.task_name}
               isCompleted={task.is_task_completed}
               onToggleTaskCompletion={onToggleTaskCompletion}
+              onDeleteTask={onDeleteTask}
             ></TaskItem>
           );
         })}

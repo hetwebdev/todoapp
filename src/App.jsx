@@ -42,6 +42,12 @@ const App = () => {
     });
   };
 
+  const handleTaskDelete = (taskId) => {
+    setTaskList((prevTasks) => {
+      return prevTasks.filter((task) => task.task_id !== taskId);
+    });
+  };
+
   return (
     <main className=" p-5 w-full h-screen bg-white">
       {showModal ? (
@@ -49,6 +55,7 @@ const App = () => {
           <RenameModal onModalClose={handleShowModal} />
         </div>
       ) : null}
+
       <header className="w-full pb-4 border-b border-slate-500 flex flex-col vsm:flex-row gap-2 justify-between items-center">
         <AddTask
           currentTaskValue={currentTaskName}
@@ -57,16 +64,20 @@ const App = () => {
         />
         <TotalTasks tasks={TaskList} />
       </header>
+
       <div className="mt-6 px-4 sm:px-6 flex flex-col gap-10 sm:flex-row ">
         <RemainingTasks
           tasks={TaskList}
           onToggleTaskCompletion={handleToggleTaskCompletion}
+          onDeleteTask={handleTaskDelete}
         />
         <CompletedTasks
           tasks={TaskList}
           onToggleTaskCompletion={handleToggleTaskCompletion}
+          onDeleteTask={handleTaskDelete}
         />
       </div>
+      
     </main>
   );
 };
