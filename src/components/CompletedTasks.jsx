@@ -1,11 +1,12 @@
 import TaskItem from "./TaskItem";
 
-const CompletedTasks = ({ tasks, onToggleTaskCompletion, onDeleteTask }) => {
-  let todos = [...tasks];
-
-  const completedtasks = todos.filter((todo) => {
-    return todo.is_task_completed === true;
-  });
+const CompletedTasks = ({
+  tasks,
+  onToggleTaskCompletion,
+  onDeleteTask,
+  getTasksByComplition,
+}) => {
+  const completedtasks = getTasksByComplition(true);
 
   return (
     <div className="w-full">

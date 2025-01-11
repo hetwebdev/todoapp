@@ -18,7 +18,12 @@ const AddTask = ({ currentTaskValue, onTypeTaskName, onClickAdd }) => {
         onKeyDown={handleKeyDown}
       />
       <button
-        className="px-4 py-2 text-white bg-slate-500 rounded-sm font-inter hover:bg-slate-600 "
+        disabled={!currentTaskValue.trim()}
+        className={`px-4 py-2 ${
+          currentTaskValue.trim()
+            ? "bg-slate-500 hover:bg-slate-600"
+            : "bg-gray-300"
+        } text-white rounded-sm`}
         onClick={() => onClickAdd(currentTaskValue)}
       >
         Add

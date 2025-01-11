@@ -6,13 +6,13 @@ import CompletedTasks from "./components/CompletedTasks";
 import { useState } from "react";
 
 const App = () => {
-  const [TaskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState([]);
   const [currentTaskName, setCurrentTaskName] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalTaskName, setModalTaskName] = useState();
   const [modalTaskId, setModalTaskId] = useState();
 
-  const handleTypeTaskName = (event) => {
+  const handleTaskNameChange = (event) => {
     setCurrentTaskName(event.target.value);
   };
 
@@ -22,28 +22,26 @@ const App = () => {
 
   const handleRenameTask = (taskId, taskName) => {
     handleShowModal();
-    console.log("Id: ", taskId);
-    console.log("Name: ", taskName);
     setModalTaskName(taskName);
     setModalTaskId(taskId);
   };
 
   const handleInsertTask = (taskname) => {
-    if (taskname === "") {
+    if (!taskname.trim()) {
+      alert("Taskname can't be empty or white-spaces!!");
       return;
-    } else {
-      let newtask = {
-        task_id: `${Date.now()}-${Math.floor(Math.random() * 9000)}`,
-        task_name: taskname,
-        is_task_completed: false,
-      };
-
-      setTaskList((prevTasks) => {
-        return [...prevTasks, newtask];
-      });
-
-      setCurrentTaskName("");
     }
+
+    let newtask = {
+      task_id: `${Date.now()}-${Math.floor(Math.random() * 9000)}`,
+      task_name: taskname,
+      is_task_completed: false,
+    };
+
+    setTaskList((prevTasks) => {
+      return [...prevTasks, newtask];
+    });
+    setCurrentTaskName("");
   };
 
   const handleToggleTaskCompletion = (taskId) => {
@@ -63,7 +61,13 @@ const App = () => {
   };
 
   const handleDeleteAllTasks = () => {
-    setTaskList([]);
+    if (window.confirm("Are you sure you want to delete all tasks?")) {
+      setTaskList([]);
+    }
+  };
+
+  const getTasksByComplition = (completed) => {
+    return taskList.filter((task) => task.is_task_completed === completed);
   };
 
   return (
@@ -75,6 +79,8 @@ const App = () => {
             modalTaskName={modalTaskName}
             modalTaskId={modalTaskId}
             setTaskList={setTaskList}
+            setModalTaskName={setModalTaskName}
+            setModalTaskId={setModalTaskId}
           />
         </div>
       ) : null}
@@ -82,23 +88,25 @@ const App = () => {
       <header className="w-full pb-4 border-b border-slate-500 flex flex-col vsm:flex-row gap-2 justify-between items-center">
         <AddTask
           currentTaskValue={currentTaskName}
-          onTypeTaskName={handleTypeTaskName}
+          onTypeTaskName={handleTaskNameChange}
           onClickAdd={handleInsertTask}
         />
-        <TotalTasks tasks={TaskList} onDeleteAllTask={handleDeleteAllTasks} />
+        <TotalTasks tasks={taskList} onDeleteAllTask={handleDeleteAllTasks} />
       </header>
 
       <div className="mt-6 px-4 sm:px-6 flex flex-col gap-10 sm:flex-row ">
         <RemainingTasks
-          tasks={TaskList}
+          tasks={taskList}
           onToggleTaskCompletion={handleToggleTaskCompletion}
           onDeleteTask={handleTaskDelete}
           onRename={handleRenameTask}
+          getTasksByComplition={getTasksByComplition}
         />
         <CompletedTasks
-          tasks={TaskList}
+          tasks={taskList}
           onToggleTaskCompletion={handleToggleTaskCompletion}
           onDeleteTask={handleTaskDelete}
+          getTasksByComplition={getTasksByComplition}
         />
       </div>
     </main>

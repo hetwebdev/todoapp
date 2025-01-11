@@ -6,6 +6,8 @@ const RenameModal = ({
   modalTaskName,
   modalTaskId,
   setTaskList,
+  setModalTaskName,
+  setModalTaskId,
 }) => {
   let taskId = modalTaskId;
   const [newTaskName, setNewTaskName] = useState("");
@@ -17,6 +19,14 @@ const RenameModal = ({
       });
     });
     onModalClose();
+    setModalTaskName("");
+    setModalTaskId(undefined);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleRenameSubmit(taskId, newTaskName);
+    }
   };
 
   return (
@@ -54,6 +64,7 @@ const RenameModal = ({
             className="p-2 border rounded-md outline-slate-400"
             autoFocus
             onChange={(e) => setNewTaskName(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>

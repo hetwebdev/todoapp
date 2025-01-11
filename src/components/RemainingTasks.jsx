@@ -5,12 +5,9 @@ const RemainingTasks = ({
   onToggleTaskCompletion,
   onDeleteTask,
   onRename,
+  getTasksByComplition,
 }) => {
-  let todos = [...tasks];
-
-  const remainingtasks = todos.filter((todo) => {
-    return todo.is_task_completed === false;
-  });
+  const remainingtasks = getTasksByComplition(false);
 
   return (
     <div className="w-full">
