@@ -9,6 +9,8 @@ const App = () => {
   const [TaskList, setTaskList] = useState([]);
   const [currentTaskName, setCurrentTaskName] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [modalTaskName, setModalTaskName] = useState();
+  const [modalTaskId, setModalTaskId] = useState();
 
   const handleTypeTaskName = (event) => {
     setCurrentTaskName(event.target.value);
@@ -16,6 +18,14 @@ const App = () => {
 
   const handleShowModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleRenameTask = (taskId, taskName) => {
+    handleShowModal();
+    console.log("Id: ", taskId);
+    console.log("Name: ", taskName);
+    setModalTaskName(taskName);
+    setModalTaskId(taskId);
   };
 
   const handleInsertTask = (taskname) => {
@@ -52,7 +62,12 @@ const App = () => {
     <main className=" p-5 w-full h-screen bg-white">
       {showModal ? (
         <div className="fixed top-0 left-0 w-full h-full z-10 bg-black/30 backdrop-blur-md flex items-center justify-center">
-          <RenameModal onModalClose={handleShowModal} />
+          <RenameModal
+            onModalClose={handleShowModal}
+            modalTaskName={modalTaskName}
+            modalTaskId={modalTaskId}
+            setTaskList={setTaskList}
+          />
         </div>
       ) : null}
 
@@ -70,6 +85,7 @@ const App = () => {
           tasks={TaskList}
           onToggleTaskCompletion={handleToggleTaskCompletion}
           onDeleteTask={handleTaskDelete}
+          onRename={handleRenameTask}
         />
         <CompletedTasks
           tasks={TaskList}
@@ -77,7 +93,6 @@ const App = () => {
           onDeleteTask={handleTaskDelete}
         />
       </div>
-      
     </main>
   );
 };

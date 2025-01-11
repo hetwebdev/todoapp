@@ -7,6 +7,7 @@ const TaskItem = ({
   isCompleted,
   onToggleTaskCompletion,
   onDeleteTask,
+  onRename,
 }) => {
   return (
     <li className="list-none p-4 bg-slate-100 rounded-md">
@@ -33,7 +34,10 @@ const TaskItem = ({
           </div>
           {isCompleted ? null : (
             <div className="p-1 size-8 text-slate-700 rounded-md flex items-center justify-center hover:bg-slate-300 hover:text-slate-900">
-              <LuPencil className="size-6" />
+              <LuPencil
+                className="size-6"
+                onClick={() => onRename(id, taskName)}
+              />
             </div>
           )}
         </div>
