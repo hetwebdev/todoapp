@@ -8,7 +8,7 @@ export default {
         poppins: ["Poppins", "serif"],
       },
       screens: {
-        vsm: "550px",
+        vsm: "610px",
       },
     },
   },
