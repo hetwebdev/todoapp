@@ -1,4 +1,10 @@
-const AddTask = ({ currentTaskValue, onTypeTaskName,onClickAdd }) => {
+const AddTask = ({ currentTaskValue, onTypeTaskName, onClickAdd }) => {
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      onClickAdd(currentTaskValue);
+    }
+  };
+
   return (
     <div className="flex items-center justify-between gap-2">
       <input
@@ -9,6 +15,7 @@ const AddTask = ({ currentTaskValue, onTypeTaskName,onClickAdd }) => {
         className="px-4 py-2 bg-slate-200 rounded-sm font-inter active:border-slate-800"
         onChange={onTypeTaskName}
         autoFocus
+        onKeyDown={handleKeyDown}
       />
       <button
         className="px-4 py-2 text-white bg-slate-500 rounded-sm font-inter hover:bg-slate-600 "
