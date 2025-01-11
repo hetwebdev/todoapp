@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-const RemainingTasks = ({ tasks }) => {
+const RemainingTasks = ({ tasks, onToggleTaskCompletion }) => {
   let todos = [...tasks];
 
   const remainingtasks = todos.filter((todo) => {
@@ -18,7 +18,13 @@ const RemainingTasks = ({ tasks }) => {
       <div className="flex flex-col gap-2">
         {remainingtasks.map((task) => {
           return (
-            <TaskItem key={task.task_id} taskName={task.task_name}></TaskItem>
+            <TaskItem
+              key={task.task_id}
+              id={task.task_id}
+              taskName={task.task_name}
+              isCompleted={task.is_task_completed}
+              onToggleTaskCompletion={onToggleTaskCompletion}
+            ></TaskItem>
           );
         })}
       </div>

@@ -32,6 +32,16 @@ const App = () => {
     setCurrentTaskName("");
   };
 
+  const handleToggleTaskCompletion = (taskId) => {
+    setTaskList((prevTasks) => {
+      return prevTasks.map((task) => {
+        return task.task_id === taskId
+          ? { ...task, is_task_completed: !task.is_task_completed }
+          : task;
+      });
+    });
+  };
+
   return (
     <main className=" p-5 w-full h-screen bg-white">
       {showModal ? (
@@ -48,8 +58,14 @@ const App = () => {
         <TotalTasks tasks={TaskList} />
       </header>
       <div className="mt-6 px-4 sm:px-6 flex flex-col gap-10 sm:flex-row ">
-        <RemainingTasks tasks={TaskList} />
-        <CompletedTasks />
+        <RemainingTasks
+          tasks={TaskList}
+          onToggleTaskCompletion={handleToggleTaskCompletion}
+        />
+        <CompletedTasks
+          tasks={TaskList}
+          onToggleTaskCompletion={handleToggleTaskCompletion}
+        />
       </div>
     </main>
   );

@@ -1,12 +1,19 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
-const TaskItem = ({ taskName }) => {
+const TaskItem = ({ id, taskName, isCompleted, onToggleTaskCompletion }) => {
   return (
     <li className="list-none p-4 bg-slate-100 rounded-md">
       <div className="flex items-center justify-between">
         <div className="flex gap-6 items-center justify-center">
-          <input type="checkbox" name="TaskState" className="size-4" />
+          <input
+            type="checkbox"
+            name="TaskState"
+            id={id}
+            checked={isCompleted}
+            className="size-4"
+            onChange={() => onToggleTaskCompletion(id)}
+          />
           <p className="font-inter font-semibold text-slate-800">
             {taskName || "can't load taskname"}
           </p>
