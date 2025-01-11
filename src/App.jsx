@@ -58,6 +58,10 @@ const App = () => {
     });
   };
 
+  const handleDeleteAllTasks = () => {
+    setTaskList([]);
+  };
+
   return (
     <main className=" p-5 w-full h-screen bg-white">
       {showModal ? (
@@ -77,7 +81,7 @@ const App = () => {
           onTypeTaskName={handleTypeTaskName}
           onClickAdd={handleInsertTask}
         />
-        <TotalTasks tasks={TaskList} />
+        <TotalTasks tasks={TaskList} onDeleteAllTask={handleDeleteAllTasks} />
       </header>
 
       <div className="mt-6 px-4 sm:px-6 flex flex-col gap-10 sm:flex-row ">
